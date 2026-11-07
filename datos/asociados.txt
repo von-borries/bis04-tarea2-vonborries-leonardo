@@ -1,0 +1,2 @@
+12345678,Pedro Herrrera,350000.0
+78945612,Juan Perez,450000.0
