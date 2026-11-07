@@ -71,4 +71,14 @@ public class AsociadoServicio {
         return total;
     }
 
+    // ---- ETAPA 4: busqueda ----
+    public Asociado buscarPorCedula(String cedula) throws IOException {
+        String buscada = cedula.trim();
+        for (Asociado a : listar()) {
+            if (a.getCedula().equals(buscada)) {
+                return a;
+            }
+        }
+        return null;
+    }
 }
