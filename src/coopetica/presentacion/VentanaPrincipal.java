@@ -24,11 +24,6 @@ public class VentanaPrincipal extends JFrame {
     private JTextArea area = new JTextArea(12, 50);
     private JLabel estado = new JLabel("Listo");
 
-    private JButton botonResumen = new JButton("Resumen");
-
-    private JTextField campoBuscar = new JTextField(10);
-    private JButton botonBuscar = new JButton("Buscar");
-
     public VentanaPrincipal() throws IOException {
         servicio = new AsociadoServicio();
 
@@ -50,10 +45,6 @@ public class VentanaPrincipal extends JFrame {
         // 3. Panel de acciones y busqueda
         JPanel acciones = new JPanel();
         acciones.add(botonListar);
-        acciones.add(botonResumen);
-        acciones.add(new JLabel("Buscar cedula:"));
-        acciones.add(campoBuscar);
-        acciones.add(botonBuscar);
 
         // 4. BorderLayout admite un solo componente por zona: agrupamos
         JPanel norte = new JPanel(new GridLayout(2, 1));
@@ -71,8 +62,6 @@ public class VentanaPrincipal extends JFrame {
         // 6. Botones (siempre antes del pack)
         botonRegistrar.addActionListener(e -> registrar());
         botonListar.addActionListener(e -> listar());
-        botonResumen.addActionListener(e -> mostrarResumen());
-        botonBuscar.addActionListener(e -> buscar());
 
         // 7. Cierre de la construccion
         pack();
@@ -117,34 +106,6 @@ public class VentanaPrincipal extends JFrame {
                 texto.append(a).append("\n");
             }
             area.setText(texto.toString());
-        } catch (IOException ex) {
-            mostrarErrorDeArchivo();
-        }
-    }
-
-    private void mostrarResumen() {
-        try {
-            int cantidad = servicio.contarAsociados();
-            double total = servicio.calcularTotalAportes();
-            JOptionPane.showMessageDialog(this,
-                    "Asociados registrados: " + cantidad
-                    + "\nTotal de aportes: " + String.format("%,.2f", total),
-                    "Resumen", JOptionPane.INFORMATION_MESSAGE);
-        } catch (IOException ex) {
-            mostrarErrorDeArchivo();
-        }
-    }
-
-    private void buscar() {
-        try {
-            Asociado a = servicio.buscarPorCedula(campoBuscar.getText());
-            if (a == null) {
-                area.setText("No existe un asociado con esa cedula.");
-            } else {
-                area.setText("Cedula: " + a.getCedula()
-                        + "\nNombre: " + a.getNombre()
-                        + "\nAportes: " + a.getSaldoAportes());
-            }
         } catch (IOException ex) {
             mostrarErrorDeArchivo();
         }
