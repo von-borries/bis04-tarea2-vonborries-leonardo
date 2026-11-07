@@ -58,4 +58,17 @@ public class AsociadoServicio {
         return registrar(new Asociado(cedula.trim(), nombre.trim(), saldo));
     }
 
+    // ---- ETAPA 3: resumen ----
+    public int contarAsociados() throws IOException {
+        return listar().size();
+    }
+
+    public double calcularTotalAportes() throws IOException {
+        double total = 0;
+        for (Asociado a : listar()) {
+            total += a.getSaldoAportes();
+        }
+        return total;
+    }
+
 }
